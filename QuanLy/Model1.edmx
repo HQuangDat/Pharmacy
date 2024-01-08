@@ -1,0 +1,772 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Pharmacy_ManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Account_ID" />
+          </Key>
+          <Property Name="Account_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_username" Type="varchar" MaxLength="50" />
+          <Property Name="Account_password" Type="varchar" MaxLength="50" />
+          <Property Name="Account_DisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Account_Category_ID" Type="int" />
+          <Property Name="Staff_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Account_Category">
+          <Key>
+            <PropertyRef Name="Account_Category_ID" />
+          </Key>
+          <Property Name="Account_Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_Category_Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bill_Date" Type="date" />
+          <Property Name="Staff_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Bill_Medicine">
+          <Key>
+            <PropertyRef Name="Medicine_ID" />
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_Medicine_Quantity" Type="int" />
+          <Property Name="Medicine_ID" Type="int" Nullable="false" />
+          <Property Name="Bill_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bill_Supplie">
+          <Key>
+            <PropertyRef Name="Medical_Supplie_ID" />
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_Supplie_Quantity" Type="int" />
+          <Property Name="Medical_Supplie_ID" Type="int" Nullable="false" />
+          <Property Name="Bill_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medical_Supplie">
+          <Key>
+            <PropertyRef Name="Medical_Supplie_ID" />
+          </Key>
+          <Property Name="Medical_Supplie_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Medical_Supplie_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Medical_Supplie_Quantity" Type="int" />
+          <Property Name="Medical_Supplie_Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="Medicine_ID" />
+          </Key>
+          <Property Name="Medicine_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Medicine_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Medicine_Quantity" Type="int" />
+          <Property Name="Medicine_Price" Type="money" />
+          <Property Name="Medicine_Expired" Type="date" />
+          <Property Name="Medicine_NXS" Type="nvarchar" MaxLength="100" />
+          <Property Name="Medicine_Category_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Medicine_Category">
+          <Key>
+            <PropertyRef Name="Medicine_Category_ID" />
+          </Key>
+          <Property Name="Medicine_Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Medicine_Category_Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Staff_ID" />
+          </Key>
+          <Property Name="Staff_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Staff_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Staff_Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Staff_Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Staff_Salary" Type="money" />
+          <Property Name="Staff_Category_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Staff_Category">
+          <Key>
+            <PropertyRef Name="Staff_Category_ID" />
+          </Key>
+          <Property Name="Staff_Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Staff_Category_Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Account__Account__36B12243">
+          <End Role="Account_Category" Type="Self.Account_Category" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_Category">
+              <PropertyRef Name="Account_Category_ID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="Account_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Account__Staff_I__37A5467C">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_ID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="Staff_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill__Staff_ID__3A81B327">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_ID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Staff_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Medi__Bill___3F466844">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="Bill_Medicine" Type="Self.Bill_Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_ID" />
+            </Principal>
+            <Dependent Role="Bill_Medicine">
+              <PropertyRef Name="Bill_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Medi__Medic__3E52440B">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
+          <End Role="Bill_Medicine" Type="Self.Bill_Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="Medicine_ID" />
+            </Principal>
+            <Dependent Role="Bill_Medicine">
+              <PropertyRef Name="Medicine_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Supp__Bill___440B1D61">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="Bill_Supplie" Type="Self.Bill_Supplie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_ID" />
+            </Principal>
+            <Dependent Role="Bill_Supplie">
+              <PropertyRef Name="Bill_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Supp__Medic__4316F928">
+          <End Role="Medical_Supplie" Type="Self.Medical_Supplie" Multiplicity="1" />
+          <End Role="Bill_Supplie" Type="Self.Bill_Supplie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medical_Supplie">
+              <PropertyRef Name="Medical_Supplie_ID" />
+            </Principal>
+            <Dependent Role="Bill_Supplie">
+              <PropertyRef Name="Medical_Supplie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicine__Medici__286302EC">
+          <End Role="Medicine_Category" Type="Self.Medicine_Category" Multiplicity="0..1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine_Category">
+              <PropertyRef Name="Medicine_Category_ID" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="Medicine_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__Staff_Cat__33D4B598">
+          <End Role="Staff_Category" Type="Self.Staff_Category" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff_Category">
+              <PropertyRef Name="Staff_Category_ID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Staff_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Bill_Create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Bill_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Medical_Supplie_Statistic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Medicine_Statistic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Statistic_Bills" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="Pharmacy_ManagementModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Account_Category" EntityType="Self.Account_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill_Medicine" EntityType="Self.Bill_Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill_Supplie" EntityType="Self.Bill_Supplie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medical_Supplie" EntityType="Self.Medical_Supplie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicine_Category" EntityType="Self.Medicine_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff_Category" EntityType="Self.Staff_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Account__Account__36B12243" Association="Self.FK__Account__Account__36B12243">
+            <End Role="Account_Category" EntitySet="Account_Category" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Account__Staff_I__37A5467C" Association="Self.FK__Account__Staff_I__37A5467C">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill__Staff_ID__3A81B327" Association="Self.FK__Bill__Staff_ID__3A81B327">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Medi__Bill___3F466844" Association="Self.FK__Bill_Medi__Bill___3F466844">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Bill_Medicine" EntitySet="Bill_Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Medi__Medic__3E52440B" Association="Self.FK__Bill_Medi__Medic__3E52440B">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="Bill_Medicine" EntitySet="Bill_Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Supp__Bill___440B1D61" Association="Self.FK__Bill_Supp__Bill___440B1D61">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Bill_Supplie" EntitySet="Bill_Supplie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Supp__Medic__4316F928" Association="Self.FK__Bill_Supp__Medic__4316F928">
+            <End Role="Medical_Supplie" EntitySet="Medical_Supplie" />
+            <End Role="Bill_Supplie" EntitySet="Bill_Supplie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Medici__286302EC" Association="Self.FK__Medicine__Medici__286302EC">
+            <End Role="Medicine_Category" EntitySet="Medicine_Category" />
+            <End Role="Medicine" EntitySet="Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__Staff_Cat__33D4B598" Association="Self.FK__Staff__Staff_Cat__33D4B598">
+            <End Role="Staff_Category" EntitySet="Staff_Category" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Pharmacy_ManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Account_ID" />
+          </Key>
+          <Property Name="Account_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Account_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Account_DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Account_Category_ID" Type="Int32" />
+          <Property Name="Staff_ID" Type="Int32" />
+          <NavigationProperty Name="Account_Category" Relationship="Self.FK__Account__Account__36B12243" FromRole="Account" ToRole="Account_Category" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Account__Staff_I__37A5467C" FromRole="Account" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Account_Category">
+          <Key>
+            <PropertyRef Name="Account_Category_ID" />
+          </Key>
+          <Property Name="Account_Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_Category_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Account__Account__36B12243" FromRole="Account_Category" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bill_Date" Type="DateTime" Precision="0" />
+          <Property Name="Staff_ID" Type="Int32" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Bill__Staff_ID__3A81B327" FromRole="Bill" ToRole="Staff" />
+          <NavigationProperty Name="Bill_Medicine" Relationship="Self.FK__Bill_Medi__Bill___3F466844" FromRole="Bill" ToRole="Bill_Medicine" />
+          <NavigationProperty Name="Bill_Supplie" Relationship="Self.FK__Bill_Supp__Bill___440B1D61" FromRole="Bill" ToRole="Bill_Supplie" />
+        </EntityType>
+        <EntityType Name="Bill_Medicine">
+          <Key>
+            <PropertyRef Name="Medicine_ID" />
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_Medicine_Quantity" Type="Int32" />
+          <Property Name="Medicine_ID" Type="Int32" Nullable="false" />
+          <Property Name="Bill_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK__Bill_Medi__Bill___3F466844" FromRole="Bill_Medicine" ToRole="Bill" />
+          <NavigationProperty Name="Medicine" Relationship="Self.FK__Bill_Medi__Medic__3E52440B" FromRole="Bill_Medicine" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="Bill_Supplie">
+          <Key>
+            <PropertyRef Name="Medical_Supplie_ID" />
+            <PropertyRef Name="Bill_ID" />
+          </Key>
+          <Property Name="Bill_Supplie_Quantity" Type="Int32" />
+          <Property Name="Medical_Supplie_ID" Type="Int32" Nullable="false" />
+          <Property Name="Bill_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK__Bill_Supp__Bill___440B1D61" FromRole="Bill_Supplie" ToRole="Bill" />
+          <NavigationProperty Name="Medical_Supplie" Relationship="Self.FK__Bill_Supp__Medic__4316F928" FromRole="Bill_Supplie" ToRole="Medical_Supplie" />
+        </EntityType>
+        <EntityType Name="Medical_Supplie">
+          <Key>
+            <PropertyRef Name="Medical_Supplie_ID" />
+          </Key>
+          <Property Name="Medical_Supplie_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Medical_Supplie_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Medical_Supplie_Quantity" Type="Int32" />
+          <Property Name="Medical_Supplie_Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Bill_Supplie" Relationship="Self.FK__Bill_Supp__Medic__4316F928" FromRole="Medical_Supplie" ToRole="Bill_Supplie" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="Medicine_ID" />
+          </Key>
+          <Property Name="Medicine_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Medicine_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Medicine_Quantity" Type="Int32" />
+          <Property Name="Medicine_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Medicine_Expired" Type="DateTime" Precision="0" />
+          <Property Name="Medicine_NXS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Medicine_Category_ID" Type="Int32" />
+          <NavigationProperty Name="Bill_Medicine" Relationship="Self.FK__Bill_Medi__Medic__3E52440B" FromRole="Medicine" ToRole="Bill_Medicine" />
+          <NavigationProperty Name="Medicine_Category" Relationship="Self.FK__Medicine__Medici__286302EC" FromRole="Medicine" ToRole="Medicine_Category" />
+        </EntityType>
+        <EntityType Name="Medicine_Category">
+          <Key>
+            <PropertyRef Name="Medicine_Category_ID" />
+          </Key>
+          <Property Name="Medicine_Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Medicine_Category_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Medicine" Relationship="Self.FK__Medicine__Medici__286302EC" FromRole="Medicine_Category" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Staff_ID" />
+          </Key>
+          <Property Name="Staff_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Staff_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Staff_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Staff_Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Staff_Salary" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Staff_Category_ID" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Account__Staff_I__37A5467C" FromRole="Staff" ToRole="Account" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK__Bill__Staff_ID__3A81B327" FromRole="Staff" ToRole="Bill" />
+          <NavigationProperty Name="Staff_Category" Relationship="Self.FK__Staff__Staff_Cat__33D4B598" FromRole="Staff" ToRole="Staff_Category" />
+        </EntityType>
+        <EntityType Name="Staff_Category">
+          <Key>
+            <PropertyRef Name="Staff_Category_ID" />
+          </Key>
+          <Property Name="Staff_Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Staff_Category_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Staff__Staff_Cat__33D4B598" FromRole="Staff_Category" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Account__Account__36B12243">
+          <End Role="Account_Category" Type="Self.Account_Category" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_Category">
+              <PropertyRef Name="Account_Category_ID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="Account_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Account__Staff_I__37A5467C">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_ID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="Staff_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill__Staff_ID__3A81B327">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Staff_ID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Staff_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Medi__Bill___3F466844">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="Bill_Medicine" Type="Self.Bill_Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_ID" />
+            </Principal>
+            <Dependent Role="Bill_Medicine">
+              <PropertyRef Name="Bill_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Supp__Bill___440B1D61">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="Bill_Supplie" Type="Self.Bill_Supplie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Bill_ID" />
+            </Principal>
+            <Dependent Role="Bill_Supplie">
+              <PropertyRef Name="Bill_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Medi__Medic__3E52440B">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
+          <End Role="Bill_Medicine" Type="Self.Bill_Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="Medicine_ID" />
+            </Principal>
+            <Dependent Role="Bill_Medicine">
+              <PropertyRef Name="Medicine_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Supp__Medic__4316F928">
+          <End Role="Medical_Supplie" Type="Self.Medical_Supplie" Multiplicity="1" />
+          <End Role="Bill_Supplie" Type="Self.Bill_Supplie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medical_Supplie">
+              <PropertyRef Name="Medical_Supplie_ID" />
+            </Principal>
+            <Dependent Role="Bill_Supplie">
+              <PropertyRef Name="Medical_Supplie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicine__Medici__286302EC">
+          <End Role="Medicine_Category" Type="Self.Medicine_Category" Multiplicity="0..1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine_Category">
+              <PropertyRef Name="Medicine_Category_ID" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="Medicine_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Staff__Staff_Cat__33D4B598">
+          <End Role="Staff_Category" Type="Self.Staff_Category" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff_Category">
+              <PropertyRef Name="Staff_Category_ID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Staff_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Pharmacy_ManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="Account_Category" EntityType="Self.Account_Category" />
+          <EntitySet Name="Bill" EntityType="Self.Bill" />
+          <EntitySet Name="Bill_Medicine" EntityType="Self.Bill_Medicine" />
+          <EntitySet Name="Bill_Supplie" EntityType="Self.Bill_Supplie" />
+          <EntitySet Name="Medical_Supplie" EntityType="Self.Medical_Supplie" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" />
+          <EntitySet Name="Medicine_Category" EntityType="Self.Medicine_Category" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <EntitySet Name="Staff_Category" EntityType="Self.Staff_Category" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__Account__Account__36B12243" Association="Self.FK__Account__Account__36B12243">
+            <End Role="Account_Category" EntitySet="Account_Category" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Account__Staff_I__37A5467C" Association="Self.FK__Account__Staff_I__37A5467C">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill__Staff_ID__3A81B327" Association="Self.FK__Bill__Staff_ID__3A81B327">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Medi__Bill___3F466844" Association="Self.FK__Bill_Medi__Bill___3F466844">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Bill_Medicine" EntitySet="Bill_Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Supp__Bill___440B1D61" Association="Self.FK__Bill_Supp__Bill___440B1D61">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Bill_Supplie" EntitySet="Bill_Supplie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Medi__Medic__3E52440B" Association="Self.FK__Bill_Medi__Medic__3E52440B">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="Bill_Medicine" EntitySet="Bill_Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Supp__Medic__4316F928" Association="Self.FK__Bill_Supp__Medic__4316F928">
+            <End Role="Medical_Supplie" EntitySet="Medical_Supplie" />
+            <End Role="Bill_Supplie" EntitySet="Bill_Supplie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Medici__286302EC" Association="Self.FK__Medicine__Medici__286302EC">
+            <End Role="Medicine_Category" EntitySet="Medicine_Category" />
+            <End Role="Medicine" EntitySet="Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Staff__Staff_Cat__33D4B598" Association="Self.FK__Staff__Staff_Cat__33D4B598">
+            <End Role="Staff_Category" EntitySet="Staff_Category" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <FunctionImport Name="Bill_Create" ReturnType="Collection(Pharmacy_ManagementModel.Bill_Create_Result)">
+          <Parameter Name="Bill_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Medical_Supplie_Statistic" ReturnType="Collection(Pharmacy_ManagementModel.Medical_Supplie_Statistic_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Medicine_Statistic" ReturnType="Collection(Pharmacy_ManagementModel.Medicine_Statistic_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Statistic_Bills" ReturnType="Collection(Pharmacy_ManagementModel.Statistic_Bills_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Bill_Create_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="Money" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="Medical_Supplie_Statistic_Result">
+          <Property Type="Int32" Name="Medical_Supplie_ID" Nullable="false" />
+          <Property Type="String" Name="Medical_Supplie_Name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="SumOfQuantity" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Medicine_Statistic_Result">
+          <Property Type="Int32" Name="Medicine_ID" Nullable="false" />
+          <Property Type="String" Name="Medicine_Name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="SumOfQuantity" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Statistic_Bills_Result">
+          <Property Type="Int32" Name="Bill_ID" Nullable="false" />
+          <Property Type="Int32" Name="Staff_ID" Nullable="true" />
+          <Property Type="DateTime" Name="Bill_Date" Nullable="true" />
+          <Property Type="Decimal" Name="Money" Nullable="true" Precision="19" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Pharmacy_ManagementModelStoreContainer" CdmEntityContainer="Pharmacy_ManagementEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Account_username" ColumnName="Account_username" />
+                <ScalarProperty Name="Account_password" ColumnName="Account_password" />
+                <ScalarProperty Name="Account_DisplayName" ColumnName="Account_DisplayName" />
+                <ScalarProperty Name="Account_Category_ID" ColumnName="Account_Category_ID" />
+                <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Account_Category">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Account_Category">
+              <MappingFragment StoreEntitySet="Account_Category">
+                <ScalarProperty Name="Account_Category_ID" ColumnName="Account_Category_ID" />
+                <ScalarProperty Name="Account_Category_Name" ColumnName="Account_Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bill">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="Bill_ID" ColumnName="Bill_ID" />
+                <ScalarProperty Name="Bill_Date" ColumnName="Bill_Date" />
+                <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bill_Medicine">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Bill_Medicine">
+              <MappingFragment StoreEntitySet="Bill_Medicine">
+                <ScalarProperty Name="Bill_Medicine_Quantity" ColumnName="Bill_Medicine_Quantity" />
+                <ScalarProperty Name="Medicine_ID" ColumnName="Medicine_ID" />
+                <ScalarProperty Name="Bill_ID" ColumnName="Bill_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bill_Supplie">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Bill_Supplie">
+              <MappingFragment StoreEntitySet="Bill_Supplie">
+                <ScalarProperty Name="Bill_Supplie_Quantity" ColumnName="Bill_Supplie_Quantity" />
+                <ScalarProperty Name="Medical_Supplie_ID" ColumnName="Medical_Supplie_ID" />
+                <ScalarProperty Name="Bill_ID" ColumnName="Bill_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medical_Supplie">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Medical_Supplie">
+              <MappingFragment StoreEntitySet="Medical_Supplie">
+                <ScalarProperty Name="Medical_Supplie_ID" ColumnName="Medical_Supplie_ID" />
+                <ScalarProperty Name="Medical_Supplie_Name" ColumnName="Medical_Supplie_Name" />
+                <ScalarProperty Name="Medical_Supplie_Quantity" ColumnName="Medical_Supplie_Quantity" />
+                <ScalarProperty Name="Medical_Supplie_Price" ColumnName="Medical_Supplie_Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicine">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Medicine">
+              <MappingFragment StoreEntitySet="Medicine">
+                <ScalarProperty Name="Medicine_ID" ColumnName="Medicine_ID" />
+                <ScalarProperty Name="Medicine_Name" ColumnName="Medicine_Name" />
+                <ScalarProperty Name="Medicine_Quantity" ColumnName="Medicine_Quantity" />
+                <ScalarProperty Name="Medicine_Price" ColumnName="Medicine_Price" />
+                <ScalarProperty Name="Medicine_Expired" ColumnName="Medicine_Expired" />
+                <ScalarProperty Name="Medicine_NXS" ColumnName="Medicine_NXS" />
+                <ScalarProperty Name="Medicine_Category_ID" ColumnName="Medicine_Category_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicine_Category">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Medicine_Category">
+              <MappingFragment StoreEntitySet="Medicine_Category">
+                <ScalarProperty Name="Medicine_Category_ID" ColumnName="Medicine_Category_ID" />
+                <ScalarProperty Name="Medicine_Category_Name" ColumnName="Medicine_Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
+                <ScalarProperty Name="Staff_Name" ColumnName="Staff_Name" />
+                <ScalarProperty Name="Staff_Address" ColumnName="Staff_Address" />
+                <ScalarProperty Name="Staff_Phone" ColumnName="Staff_Phone" />
+                <ScalarProperty Name="Staff_Salary" ColumnName="Staff_Salary" />
+                <ScalarProperty Name="Staff_Category_ID" ColumnName="Staff_Category_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff_Category">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.Staff_Category">
+              <MappingFragment StoreEntitySet="Staff_Category">
+                <ScalarProperty Name="Staff_Category_ID" ColumnName="Staff_Category_ID" />
+                <ScalarProperty Name="Staff_Category_Name" ColumnName="Staff_Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Pharmacy_ManagementModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Bill_Create" FunctionName="Pharmacy_ManagementModel.Store.Bill_Create">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Pharmacy_ManagementModel.Bill_Create_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Medical_Supplie_Statistic" FunctionName="Pharmacy_ManagementModel.Store.Medical_Supplie_Statistic">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Pharmacy_ManagementModel.Medical_Supplie_Statistic_Result">
+                <ScalarProperty Name="Medical_Supplie_ID" ColumnName="Medical_Supplie_ID" />
+                <ScalarProperty Name="Medical_Supplie_Name" ColumnName="Medical_Supplie_Name" />
+                <ScalarProperty Name="SumOfQuantity" ColumnName="SumOfQuantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Medicine_Statistic" FunctionName="Pharmacy_ManagementModel.Store.Medicine_Statistic">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Pharmacy_ManagementModel.Medicine_Statistic_Result">
+                <ScalarProperty Name="Medicine_ID" ColumnName="Medicine_ID" />
+                <ScalarProperty Name="Medicine_Name" ColumnName="Medicine_Name" />
+                <ScalarProperty Name="SumOfQuantity" ColumnName="SumOfQuantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Statistic_Bills" FunctionName="Pharmacy_ManagementModel.Store.Statistic_Bills">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Pharmacy_ManagementModel.Statistic_Bills_Result">
+                <ScalarProperty Name="Bill_ID" ColumnName="Bill_ID" />
+                <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
+                <ScalarProperty Name="Bill_Date" ColumnName="Bill_Date" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

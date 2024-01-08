@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4cbd9a97e4ea47d0ad26aa5b5bd60741" Name="Diagram1">
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Account" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Account_Category" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Bill" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Bill_Medicine" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Bill_Supplie" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Medical_Supplie" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Medicine" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Medicine_Category" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Staff" Width="1.5" PointX="2.625" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.Staff_Category" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Pharmacy_ManagementModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Account__Account__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Account__Staff_I__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Bill__Staff_ID__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Bill_Medi__Bill___3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Bill_Supp__Bill___440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Bill_Medi__Medic__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Bill_Supp__Medic__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Medicine__Medici__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="Pharmacy_ManagementModel.FK__Staff__Staff_Cat__33D4B598" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
